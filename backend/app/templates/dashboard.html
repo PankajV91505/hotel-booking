@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.full_name }}</h1>
+    <p>Email: {{ user.email }}</p>
+    <h2>Your Bookings:</h2>
+    {% if bookings %}
+        <ul>
+        {% for entry in bookings %}
+            <li>
+                Hotel: {{ entry.hotel.name }} ({{ entry.hotel.location }})<br>
+                Room: {{ entry.room.room_type }}<br>
+                Check-in: {{ entry.booking.check_in }} | Check-out: {{ entry.booking.check_out }}<br>
+                Total: ₹{{ entry.booking.total_price }}<br>
+                Status: {{ entry.booking.status }}
+            </li>
+            <hr>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No bookings found.</p>
+    {% endif %}
+    <p><a href="/hotels">Book another room</a></p>
+</body>
+</html>

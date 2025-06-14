@@ -1,0 +1,34 @@
+<!-- templates/bookings/history.html -->
+<h2>Booking History</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Hotel</th>
+            <th>Room</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Total Price</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.hotel_id }}</td>
+            <td>{{ booking.room_id }}</td>
+            <td>{{ booking.check_in }}</td>
+            <td>{{ booking.check_out }}</td>
+            <td>{{ booking.total_price }}</td>
+            <td>{{ booking.status }}</td>
+            <td>
+                {% if booking.status != 'cancelled' %}
+                    <a href="{{ url_for('bookings.cancel_booking', booking_id=booking.id) }}">Cancel</a>
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,5 @@
+<form action="{{ url_for('bookings.book_room', room_id=room.id) }}" method="POST">
+    <input type="date" name="check_in" required>
+    <input type="date" name="check_out" required>
+    <button type="submit">Book Now</button>
+</form>
