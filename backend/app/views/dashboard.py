@@ -13,5 +13,5 @@ def dashboard():
         hotels = Hotel.query.all()
         rooms = Room.query.all()
         return render_template('dashboard/admin_dashboard.html', users=users, hotels=hotels, rooms=rooms)
-    return render_template('dashboard/user_dashboard.html')
+    return render_template('dashboard/user_dashboard.html', user=current_user) 
 

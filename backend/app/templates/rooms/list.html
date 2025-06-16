@@ -1,5 +1,18 @@
-<form action="{{ url_for('bookings.book_room', room_id=room.id) }}" method="POST">
-    <input type="date" name="check_in" required>
-    <input type="date" name="check_out" required>
-    <button type="submit">Book Now</button>
-</form>
+<!-- backend/app/templates/rooms/list.html -->
+{% extends "base.html" %}
+{% block title %}Rooms{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-semibold mb-4">Rooms</h2>
+<ul>
+    {% for room in rooms %}
+        <li class="mb-2 p-4 bg-white rounded border">
+            Room Type: {{ room.type }}<br>
+            Price: ₹{{ room.price }}<br>
+            <form action="/booking/book" method="POST">
+                <input type="hidden" name="room_id" value="{{ room.id }}">
+                <button class="mt-2 bg-green-500 text-white px-4 py-2 rounded">Book</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

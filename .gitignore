@@ -1,0 +1,70 @@
+# Python Bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs and temp
+*.log
+*.pot
+*.pyc
+*.swp
+*.bak
+*.tmp
+
+# Flask/Django instance and config
+instance/
+*.sqlite3
+*.db
+.env
+.env.*
+config.yaml
+settings_local.py
+
+# Media & Static Files
+/media/
+staticfiles/
+static_root/
+media_root/
+
+# Coverage / Testing
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+
+# Migrations (optional)
+*/migrations/__pycache__/
+*/migrations/*.pyc
+*/migrations/*.pyo
+
+# pyenv
+.python-version
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node / Frontend (if you’re using React or Tailwind build)
+node_modules/
+dist/
+build/
+package-lock.json
+
+# Word / Zip / Scraper outputs (optional)
+*.docx
+*.zip
