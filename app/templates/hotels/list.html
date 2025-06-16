@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Browse Hotels{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+
+    <!-- Header -->
+    <h2 class="text-3xl font-extrabold text-gray-800 mb-6">🏨 Available Hotels</h2>
+
+    <!-- Search Form -->
+    <form method="GET" class="flex flex-col sm:flex-row gap-3 mb-8">
+        <input type="text" name="q" value="{{ query or '' }}"
+               placeholder="Search by name or city..."
+               class="flex-grow px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:border-blue-400 text-gray-800">
+        <button type="submit"
+                class="px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 shadow transition">
+            🔍 Search
+        </button>
+    </form>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="mb-6 p-4 bg-red-100 text-red-700 rounded">
+                {% for msg in messages %}
+                    <p>{{ msg }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Hotels Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for hotel in hotels %}
+        <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-lg transition duration-300">
+            <h3 class="text-xl font-bold text-blue-700 mb-1">{{ hotel.name }}</h3>
+            <p class="text-gray-600">📍 {{ hotel.city }}</p>
+            <p class="text-sm text-gray-500 mt-1">⭐ Rating: {{ hotel.rating or 'N/A' }}</p>
+            <a href="{{ url_for('hotels.hotel_detail', hotel_id=hotel.id) }}"
+               class="mt-4 inline-block text-sm text-blue-600 hover:underline">
+               ➤ View Details
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- No Results -->
+    {% if not hotels %}
+        <p class="mt-8 text-center text-gray-500 text-lg">😕 No hotels available matching your search.</p>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+    <!-- User Info -->
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+            👋 Welcome, {{ user.full_name }}
+        </h1>
+        <p class="text-gray-600 dark:text-gray-300">📧 Email: {{ user.email }}</p>
+    </div>
+
+    <!-- Booking Section -->
+    <div>
+        <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">🛏️ Your Bookings</h2>
+
+        {% if bookings %}
+            <div class="space-y-4">
+                {% for entry in bookings %}
+                <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-gray-50 dark:bg-gray-900">
+                    <p class="font-semibold text-lg text-blue-700 dark:text-blue-300">{{ entry.hotel.name }}</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                        📍 Location: {{ entry.hotel.location }}
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        🛏️ Room Type: {{ entry.room.room_type }}
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        🗓️ Check-in: {{ entry.booking.check_in }} | Check-out: {{ entry.booking.check_out }}
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                        💰 Total: ₹{{ entry.booking.total_price }}
+                    </p>
+                    <p class="text-sm font-medium text-green-600 dark:text-green-400">
+                        🔖 Status: {{ entry.booking.status }}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-500 italic mt-4">You have no bookings yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-6 text-right">
+        <a href="{{ url_for('hotels.list_hotels') }}"
+           class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+            ➕ Book Another Room
+        </a>
+    </div>
+</div>
+{% endblock %}

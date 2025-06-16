@@ -1,0 +1,29 @@
+<!-- backend/app/templates/booking/history.html -->
+{% extends "base.html" %}
+{% block title %}Booking History{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-8">
+    <h2 class="text-3xl font-bold text-center text-blue-600 mb-6">Your Booking History</h2>
+
+    {% if bookings %}
+        <ul class="space-y-4">
+            {% for booking in bookings %}
+                <li class="bg-white shadow rounded-lg p-5 border border-gray-200">
+                    <div class="text-lg font-semibold text-gray-800">
+                        🏨 Hotel: <span class="text-blue-700">{{ booking.hotel_name }}</span>
+                    </div>
+                    <div class="text-gray-700 mt-1">
+                        🛏️ Room Type: <span class="font-medium">{{ booking.room_type }}</span>
+                    </div>
+                    <div class="text-gray-600 mt-1">
+                        📅 Date: {{ booking.date.strftime('%d %B, %Y') if booking.date else 'N/A' }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="text-center text-gray-500 mt-6">You have no bookings yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
