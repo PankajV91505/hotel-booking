@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Browse Hotels{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Available Hotels</h2>
+
+    <form method="GET" class="mb-6 flex items-center gap-2">
+        <input type="text" name="q" value="{{ query or '' }}" placeholder="Search by name or city..."
+               class="w-full p-2 border rounded focus:outline-none focus:ring focus:border-blue-400">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Search
+        </button>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="mb-4 text-red-600">
+                {% for msg in messages %}
+                    <p>{{ msg }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for hotel in hotels %}
+        <div class="bg-white rounded shadow p-4 hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold text-blue-600">{{ hotel.name }}</h3>
+            <p class="text-gray-600">{{ hotel.city }}</p>
+            <p class="mt-1 text-sm text-gray-500">Rating: {{ hotel.rating or 'N/A' }}</p>
+            <a href="{{ url_for('hotels.hotel_detail', hotel_id=hotel.id) }}"
+               class="inline-block mt-3 text-blue-500 hover:underline">View Details</a>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not hotels %}
+        <p class="mt-6 text-gray-500">No hotels available.</p>
+    {% endif %}
+</div>
+{% endblock %}

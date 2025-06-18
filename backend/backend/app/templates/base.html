@@ -1,0 +1,36 @@
+<!-- backend/app/templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hotel Booking{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <nav class="bg-white shadow-md px-6 py-4 flex justify-between">
+        <a href="{{ url_for('dashboard.dashboard') }}" class="text-xl font-bold text-blue-600">HotelBooking</a>
+        <div>
+            <a href="{{ url_for('auth.login') }}" class="mr-4 text-blue-500 hover:underline">Login</a>
+            <a href="{{ url_for('auth.register') }}" class="text-blue-500 hover:underline">Register</a>
+        </div>
+    </nav>
+    
+    <main class="p-6">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="mb-4">
+                    {% for message in messages %}
+                        <li class="bg-green-100 text-green-800 px-4 py-2 rounded mb-2">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

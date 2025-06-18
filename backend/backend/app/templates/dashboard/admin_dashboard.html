@@ -1,0 +1,48 @@
+<!-- backend/app/templates/dashboard/admin_dashboard.html -->
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="flex flex-col md:flex-row gap-6 mt-6">
+    
+    <!-- Sidebar -->
+    <aside class="w-full md:w-1/4 bg-gray-100 p-4 rounded-lg shadow-md">
+        <h2 class="text-xl font-bold mb-4 text-gray-700">Admin Navigation</h2>
+        <ul class="space-y-3">
+            <li>
+                <a href="/hotels/list" class="block py-2 px-4 rounded-lg bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium">
+                    🏨 Manage Hotels
+                </a>
+            </li>
+            <li>
+                <a href="/rooms/list" class="block py-2 px-4 rounded-lg bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium">
+                    🚪 Manage Rooms
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main content -->
+    <section class="flex-1">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h1 class="text-2xl font-semibold text-gray-800 mb-4">Welcome, Admin</h1>
+            <p class="text-gray-600">Here you can manage hotels and rooms, update information, and monitor bookings.</p>
+
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg shadow hover:shadow-lg transition">
+                    <h3 class="text-lg font-bold text-blue-700 mb-2">🏨 Hotels</h3>
+                    <p class="text-sm text-gray-600">View, add or remove hotel listings.</p>
+                    <a href="/hotels/list" class="inline-block mt-3 text-sm text-blue-600 hover:underline">Manage Hotels →</a>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg shadow hover:shadow-lg transition">
+                    <h3 class="text-lg font-bold text-blue-700 mb-2">🚪 Rooms</h3>
+                    <p class="text-sm text-gray-600">Manage room availability and pricing.</p>
+                    <a href="/rooms/list" class="inline-block mt-3 text-sm text-blue-600 hover:underline">Manage Rooms →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

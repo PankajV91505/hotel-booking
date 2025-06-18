@@ -1,36 +1,80 @@
-<!-- backend/app/templates/base.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Hotel Booking{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+      }
+    </script>
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <nav class="bg-white shadow-md px-6 py-4 flex justify-between">
-        <a href="{{ url_for('dashboard.dashboard') }}" class="text-xl font-bold text-blue-600">HotelBooking</a>
-        <div>
-            <a href="{{ url_for('auth.login') }}" class="mr-4 text-blue-500 hover:underline">Login</a>
-            <a href="{{ url_for('auth.register') }}" class="text-blue-500 hover:underline">Register</a>
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-white transition-colors duration-300">
+
+    <!-- Navbar -->
+    <nav class="bg-white dark:bg-gray-800 shadow-md px-6 py-4 flex justify-between items-center">
+        <a href="{{ url_for('dashboard.dashboard') }}" class="text-xl font-bold text-blue-600 dark:text-blue-400">
+            HotelBooking
+        </a>
+        <div class="flex items-center gap-4">
+            <a href="{{ url_for('auth.login') }}" class="text-blue-500 hover:underline dark:text-blue-300">Login</a>
+            <a href="{{ url_for('auth.register') }}" class="text-blue-500 hover:underline dark:text-blue-300">Register</a>
+            <!-- Toggle Icon -->
+            <button id="theme-toggle" class="text-xl focus:outline-none" aria-label="Toggle Theme">
+                <i id="theme-icon" class="fas fa-moon text-gray-800 dark:text-white"></i>
+            </button>
         </div>
     </nav>
-    
+
+    <!-- Flash messages -->
     <main class="p-6">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul class="mb-4">
                     {% for message in messages %}
-                        <li class="bg-green-100 text-green-800 px-4 py-2 rounded mb-2">{{ message }}</li>
+                        <li class="bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-100 px-4 py-2 rounded mb-2">
+                            {{ message }}
+                        </li>
                     {% endfor %}
                 </ul>
             {% endif %}
         {% endwith %}
-        
+
         {% block content %}{% endblock %}
     </main>
 
-    <script src="scripts.js"></script>
+    <!-- Theme Toggle Script -->
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const htmlTag = document.documentElement;
+        const icon = document.getElementById('theme-icon');
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            htmlTag.classList.add('dark');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        toggleBtn?.addEventListener('click', () => {
+            const isDark = htmlTag.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+            // Toggle icon
+            if (isDark) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+    </script>
 </body>
 </html>

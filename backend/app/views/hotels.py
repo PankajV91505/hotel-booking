@@ -5,13 +5,14 @@ from ..models import Hotel
 
 hotels_bp = Blueprint('hotels', __name__, url_prefix='/hotels')
 
+
 @hotels_bp.route('/')
+@hotels_bp.route('/list')  # ✅ now both /hotels/ and /hotels/list will work
 def list_hotels():
     search_query = request.args.get('q', '').strip()
     hotels = []
 
     if search_query:
-        # Search hotels by name or city
         hotels = Hotel.query.filter(
             (Hotel.name.ilike(f"%{search_query}%")) |
             (Hotel.city.ilike(f"%{search_query}%"))

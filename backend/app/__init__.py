@@ -6,6 +6,8 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from config import Config
 
+app = Flask(__name__, static_folder='static', template_folder='templates')
+
 # Initialize extensions
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -48,7 +50,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(hotels_bp)
     app.register_blueprint(rooms_bp)
-    app.register_blueprint(bookings_bp)  # ✅ use only this one
+    app.register_blueprint(bookings_bp)
     app.register_blueprint(dashboard_bp)
 
     return app
